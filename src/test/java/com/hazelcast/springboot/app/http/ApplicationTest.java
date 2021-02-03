@@ -1,6 +1,7 @@
-package com.hazelcast.springboot.http;
+package com.hazelcast.springboot.app.http;
 
 import com.hazelcast.config.Config;
+import com.hazelcast.springboot.app.Application;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
@@ -63,8 +64,8 @@ public class ApplicationTest {
     public static class TestApplication extends Application {
 
         @Bean
-        public Config config() {
-            Config config = super.config(); // Keep the test sync with the published content.
+        public Config config(TransactionsMapLoader transactionsMapLoader) {
+            Config config = super.config(transactionsMapLoader); // Keep the test sync with the published content.
             config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(true);
             return config;
         }
