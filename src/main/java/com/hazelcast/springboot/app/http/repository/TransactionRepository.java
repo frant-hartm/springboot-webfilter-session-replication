@@ -20,8 +20,8 @@ public class TransactionRepository {
 
     private static final Logger log = LoggerFactory.getLogger(TransactionRepository.class);
 
-    private JdbcTemplate jdbcTemplate;
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public TransactionRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -56,7 +56,7 @@ public class TransactionRepository {
         );
     }
 
-    private Transaction readTransactionFromRS(ResultSet rs) throws SQLException {
+    public static Transaction readTransactionFromRS(ResultSet rs) throws SQLException {
         return new Transaction(
                 rs.getLong("id"),
                 OffsetDateTime.ofInstant(Instant.ofEpochMilli(rs.getTimestamp("timestamp").getTime()),
